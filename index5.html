@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AA</title>
+</head>
+<body>
+	<div id="app"></div>
+	<script src="bulid/react-with-addons.js"></script> 
+	<script src="bulid/react-dom.js"></script> 
+	<script src="bulid/browser.min.js"></script> 
+	<script type="text/babel">
+	 	var EasyForm = React.createClass({
+	 		mixins: [React.addons.LinkedStateMixin],
+	 		getInitialState:function(){
+	 			return{
+	 				message:'test react.js',
+	 				isReactTest : true
+	 			}
+	 		},
+	 		handleSubmit:function(e){
+	 			e.preventDefault();
+	 			var message = this.state.message;
+	 			var isReactTest = this.state.isReactTest ? '1':'0';
+	 			var formData = {
+	 				message : message,
+	 				isReactTest : isReactTest
+	 			}
+	 			console.log(formData);
+	 		},
+	 		render:function(){
+	 			return (
+	 				<form onSubmit = {this.handleSubmit}>
+	 					<input type="text" valueLink={this.linkState('message')} />
+	 					<h1>{this.state.message}</h1>
+	 					<h2>{this.state.isReactTest ? 'YES':'NO'}</h2>
+	 					<input type="checkbox" checkedLink={this.linkState('isReactTest')} value={this.state.isReactTest ? '1' : '0'} />
+	 					<SubComp message={this.state.message} isReactTest={this.state.isReactTest}/>
+	 					<button type="submit">提交</button>
+	 				</form>
+	 			)
+	 		}
+	 	});
+
+	 	var SubComp = React.createClass({
+	 		render : function(){
+	 			return (
+	 				<div>
+	 				<h2>组件一</h2>
+	 				<h3>{this.props.message}</h3>
+	 				<h3>{this.props.isReactTest ? '1' : '0'}</h3>
+	 				<SubSubComp {...this.props} />
+	 				</div>
+	 			)
+	 		}
+	 	});
+
+	 	var SubSubComp = React.createClass({
+	 		render : function(){
+	 			return (
+	 				<div>
+	 				<h2>组件二</h2>
+	 				<h3>{this.props.message}</h3>
+	 				<h3>{this.props.isReactTest ? 'YES':'NO'}</h3>
+	 				</div>
+	 			)
+	 		}
+	 	});	 	
+	 	ReactDOM.render(
+	 		<EasyForm/>,
+	 		document.getElementById('app')
+	 	);
+	</script>
+</body>
+</html>

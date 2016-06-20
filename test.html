@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AA</title>
+<script src="http://bbs.aisy.com/static/js/jquery.min.js"></script> 
+</head>
+<body>
+	<div id="test">
+	<div class="merchant_page">merchant_page</div>
+	<div class="cart_page">cart_page</div>
+	<div id="shade">shade</div>
+	<a href="javascript:;" id="check_order">check_order</a>
+	<a href="javascript:;" class="continue">continue</a>
+	<a href="javascript:;" class="close">close</a>
+	</div>
+	<a href="javascript:;" class="close">close</a>
+	<script>
+		(function($view) {
+			console.log($view);
+		    var $merchantPage = $view.find(".merchant_page");
+		    var $cartPage = $view.find(".cart_page");
+		    var $shade = $view.find("#shade");
+
+		    $view
+		        .on("click", "#check_order", showCart)
+		        .on("click", ".continue", showMerchant)
+		        .on("click", ".close", closePage)
+		    ;
+
+		    function closePage() {
+		        $shade.hide();
+		    }
+
+		    function showCart() {
+		        $merchantPage.hide();
+		        $cartPage.show();
+		    }
+
+		    function showMerchant() {
+		        $merchantPage.show();
+		        $cartPage.hide();
+		    }
+
+		})($('#test'))		
+	</script>
+</body>
+</html>

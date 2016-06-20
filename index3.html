@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AA</title>
+</head>
+<body>
+<div id="app"></div>
+<script src="bulid/react.js"></script> 
+<script src="bulid/react-dom.js"></script> 
+<script src="bulid/browser.min.js"></script> 
+<script type="text/babel">
+  var MessageBox = React.createClass({
+    getInitialState: function(){
+      return {
+        isVisible: true,
+        titleMessages: this.props.title,
+        titleMessages2:this.props.title2,
+        subMessages:[
+          '描述1',
+          '描述2',
+          '描述3',
+        ]
+      } 
+    },      
+    render: function () {
+        return (
+          <div>
+            <h1>{this.state.titleMessages}</h1>
+            <h1>{this.state.titleMessages2}</h1>
+            <SubMessages messages = {this.state.subMessages} />
+          </div>
+        );
+    }
+  });
+
+  var SubMessages = React.createClass({
+    render: function(){
+        var msgs = [];
+        this.props.messages.forEach(function(msg,index){
+          msgs.push(
+              <p key = {'a' +index}>说：{msg}</p>
+            )
+        });         
+        return(
+            <div>{msgs}</div>
+        );
+    }
+  });
+  
+  var title = '标题props';
+  var title2 = '标题props2';
+  ReactDOM.render(
+      <MessageBox title = {title} title2 = {title2}/>,
+      document.getElementById('app'),
+      function () {
+          console.log('啊啊');
+      }
+  )
+</script>
+</body>
+</html>

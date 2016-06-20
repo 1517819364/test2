@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AA</title>
+</head>
+<body>
+<div id="app"></div>
+<script src="bulid/react.js"></script> 
+<script src="bulid/react-dom.js"></script> 
+<script src="bulid/browser.min.js"></script> 
+<script type="text/babel">
+  var ClickApp = React.createClass({
+    getInitialState: function(){
+      return {
+        clcikCount: 0, 
+        addCount: 0,
+        reduceCount: 0
+      } 
+    },
+    handleClick:function(state){
+      switch (state){
+        case 1:
+            this.setState({
+              clcikCount: this.state.clcikCount + 1,
+              addCount: this.state.addCount + 1
+            });
+            break;
+        case 2:
+            if(this.state.clcikCount > 0 ){
+              this.setState({
+                clcikCount: this.state.clcikCount + 1,
+                reduceCount: this.state.reduceCount + 1
+              });              
+            }        
+            break;        
+      }
+    },          
+    render: function(){
+        return(
+          <div>
+            <h1>点击按钮</h1>
+            <button onClick = {this.handleClick.bind(this, 1)}>点击</button>
+            <button onClick = {this.handleClick.bind(this, 2)}>点击</button>
+            <p>一共点击了{this.state.clcikCount}次</p>
+            <p>增加{this.state.addCount}次</p>
+            <p>减少{this.state.reduceCount}次</p>
+          </div>
+        )
+      }
+  });
+  
+
+
+  var clickComponent = ReactDOM.render(
+    <ClickApp/>,
+    document.getElementById('app'),
+    function () {
+        console.log('啊啊');
+    }    
+  )
+
+</script>
+</body>
+</html>

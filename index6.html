@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AA</title>
+</head>
+<body>
+	<div id="app"></div>
+	<script src="bulid/react-with-addons.js"></script> 
+	<script src="bulid/react-dom.js"></script> 
+	<script src="bulid/browser.min.js"></script> 
+	<script type="text/babel">
+		var stateRecordMixin = {
+			componentWillMount : function(){
+				this.oldStates = [];
+			},
+			componentWillUpdate : function(nextProps,nextState){
+				this.oldStates.push(nextState);
+			},
+			previousState:function(){
+				var index = this.oldStates.length -1;
+				return index == -1 ? {} : this.oldStates[index];
+			}			
+		}
+
+		var MessageBox = React.createClass({
+			mixins: [ stateRecordMixin ],
+			getInitialState:function(){
+				return {
+					count: 0,
+				}
+			},
+			doUpdate: function(){
+				this.setState({
+					count:this.state.count + 1, 
+				});
+				alert('上一次的计数是：'+this.previousState().count)
+			},			
+			render : function(){
+				return (
+					<div>
+					<h1>当前记数：{this.state.count}</h1>
+					<button onClick={this.doUpdate}>点击</button>
+					</div>	
+				)
+			}
+		});
+
+		ReactDOM.render(
+			<MessageBox/>,
+			document.getElementById('app')
+		);
+	</script>
+</body>
+</html>
